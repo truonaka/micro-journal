@@ -1,6 +1,17 @@
+git clone <repo-url>
 # Micro Journal
 
 Quick daily entries with mood tracking.
+
+## Table of Contents
+1. [Tech Stack](#tech-stack)
+2. [Architecture](#architecture)
+3. [Features](#features)
+4. [Pages](#pages)
+5. [Data Model](#data-model-sqlite)
+6. [Moods](#moods)
+7. [Development Setup](#development-setup)
+8. [Scripts](#scripts)
 
 ## Tech Stack
 - Frontend: React
@@ -31,13 +42,64 @@ Quick daily entries with mood tracking.
 ## Moods
 - great, good, okay, rough, bad (or use emojis)
 
-## Setup Instructions
+## Development Setup
 
 ### 1. Clone the repository
 
-```
+```sh
 git clone <repo-url>
 cd micro-journal
+```
+
+### 2. Install dependencies
+
+#### Backend (Python, FastAPI)
+
+```sh
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r backend/requirements.txt
+```
+
+#### Frontend (React)
+
+```sh
+cd frontend
+npm install
+cd ..
+```
+
+#### Project root (dev tools)
+
+```sh
+npm install
+```
+
+### 3. Start development servers
+
+Start both frontend and backend with a single command in the project root:
+
+```sh
+npm run dev
+```
+
+This will start:
+- Backend at: http://localhost:8000
+- Frontend at: http://localhost:3000
+
+## Scripts
+
+- `npm run dev` — Starts both frontend and backend in development mode
+- `cd frontend && npm start` — Starts only the frontend
+- `cd backend && uvicorn main:app --reload` — Starts only the backend
+
+## .gitignore
+
+A comprehensive .gitignore is provided in the project root, covering both frontend and backend needs.
+
+---
+
+For more information, see backend/README.md and frontend/README.md
 ```
 
 ### 2. Backend setup

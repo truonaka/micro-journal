@@ -1,54 +1,29 @@
-from fastapi import APIRouter, HTTPException
 from datetime import date
-from .models import Entry
-from .schemas import EntryCreate
-from .db import SessionLocal
+from typing import Dict, List
+
+from fastapi import APIRouter
+
+from .schemas import EntryCreate, EntryOut
+from .services import EntryService
 
 router = APIRouter()
 
-VALID_MOODS = ["great", "good", "okay", "rough", "bad"]
 
-@router.get("/entries")
-def get_entries():
-    db = SessionLocal()
-    return db.query(Entry).order_by(Entry.date.desc()).all()
-
-@router.get("/entries/{entry_date}")
-def get_entry(entry_date: date):
-    db = SessionLocal()
-    entry = db.query(Entry).filter(Entry.date == entry_date).first()
-    return entry
-
-@router.post("/entries")
-def create_or_update(entry: EntryCreate):
-    db = SessionLocal()
-
-    existing = db.query(Entry).filter(Entry.date == entry.date).first()
+@router.get("/entries", response_model=List[EntryOut])
+def get_entries() -> List[EntryOut]:
+    return EntryService.get_entries()
 
 
-    if existing:
-        if entry.date != date.today():
-            raise HTTPException(400, "Cannot edit past entries")
+@router.get("/entries/{entry_date}", response_model=EntryOut | None)
+def get_entry(entry_date: date) -> EntryOut | None:
+    return EntryService.get_entry(entry_date)
 
-        from datetime import datetime
-        existing.content = entry.content
-        existing.mood = entry.mood
-        existing.updated_at = datetime.utcnow()
-        db.commit()
-        return existing
 
-    new_entry = Entry(**entry.dict())
-    db.add(new_entry)
-    db.commit()
-    return new_entry
+@router.post("/entries", response_model=EntryOut)
+def create_or_update(entry: EntryCreate) -> EntryOut:
+    return EntryService.create_or_update(entry)
 
-@router.get("/stats")
-def stats():
-    db = SessionLocal()
-    entries = db.query(Entry).all()
 
-    mood_count = {}
-    for e in entries:
-        mood_count[e.mood] = mood_count.get(e.mood, 0) + 1
-
-    return mood_count
+@router.get("/stats", response_model=Dict[str, int])
+def stats() -> Dict[str, int]:
+    return EntryService.get_stats()

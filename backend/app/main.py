@@ -1,6 +1,9 @@
+from typing import Dict
+
 from fastapi import FastAPI
-from .db import Base, engine
 from fastapi.middleware.cors import CORSMiddleware
+
+from .db import Base, engine
 from .routes import router
 
 Base.metadata.create_all(bind=engine)
@@ -15,8 +18,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/")
-def root():
+
+@app.get("/", response_model=Dict[str, str])
+def root() -> Dict[str, str]:
     return {"message": "API work!"}
 
 app.include_router(router)

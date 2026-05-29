@@ -1,0 +1,42 @@
+[project]
+name = "micro-journal-backend"
+version = "0.1.0"
+description = "Micro Journal backend using FastAPI, Pydantic, SQLite"
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "sqlalchemy",
+    "pydantic",
+    "aiosqlite",
+    "python-dateutil",
+    "pytest"
+]
+
+[tool.uv]
+# uv handles venv and dependency management
+
+[tool.ruff]
+line-length = 79
+fix = true
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+
+[tool.pyright]
+typeCheckingMode = "strict"
+include = ["app"]
+exclude = ["**/venv/**"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--strict-markers"
+pythonpath = ["."]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

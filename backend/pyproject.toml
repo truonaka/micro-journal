@@ -8,8 +8,6 @@ dependencies = [
     "uvicorn[standard]",
     "sqlalchemy",
     "pydantic",
-    "aiosqlite",
-    "python-dateutil",
     "pytest"
 ]
 

@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "^5.14.0",
-    "@mui/lab": "^5.0.0-alpha.125",
-    "@mui/material": "^5.14.0",
     "@tanstack/react-query": "^5.100.14",
     "axios": "^1.6.0",
     "react": "^18.2.0",
@@ -23,8 +18,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "@testing-library/dom": "file:../node_modules/@testing-library/dom",
-    "@testing-library/react": "file:../node_modules/@testing-library/react",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/react": "^16.3.2",
     "cypress": "^15.16.0",
     "react-scripts": "5.0.1"
   },

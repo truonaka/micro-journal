@@ -1,0 +1,79 @@
+.today-page {
+    max-width: 720px;
+}
+
+.status-message {
+    margin-bottom: 8px;
+}
+
+.status-message-error {
+    color: var(--color-error);
+}
+
+.status-message-success {
+    color: var(--color-success);
+}
+
+.today-textarea {
+    display: block;
+    width: 100%;
+    max-width: 640px;
+    min-height: 140px;
+    margin-bottom: 8px;
+}
+
+.today-mood-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.mood-button {
+    border: 1px solid var(--color-border-default);
+    border-radius: 6px;
+    padding: 4px 10px;
+    cursor: pointer;
+    background: var(--color-surface-muted);
+    font-weight: 400;
+}
+
+.mood-button.selected {
+    border-width: 2px;
+    font-weight: 700;
+}
+
+.mood-button-great.selected {
+    border-color: var(--mood-great);
+    background: #4caf5033;
+}
+
+.mood-button-good.selected {
+    border-color: var(--mood-good);
+    background: #8bc34a33;
+}
+
+.mood-button-okay.selected {
+    border-color: var(--mood-okay);
+    background: #ffeb3b33;
+}
+
+.mood-button-rough.selected {
+    border-color: var(--mood-rough);
+    background: #ff980033;
+}
+
+.mood-button-bad.selected {
+    border-color: var(--mood-bad);
+    background: #f4433633;
+}
+
+.save-button {
+    padding: 6px 12px;
+}
+
+.field-error {
+    color: var(--color-error);
+    font-size: 0.9rem;
+    margin: 4px 0 8px;
+}

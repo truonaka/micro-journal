@@ -1,0 +1,44 @@
+.month-calendar-table {
+    border-collapse: separate;
+    border-spacing: 4px;
+    margin: 0 auto;
+}
+
+.month-calendar-cell {
+    text-align: center;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.month-calendar-day-number {
+    font-size: 0.8em;
+    color: var(--color-text-muted);
+}
+
+.month-calendar-pad {
+    padding: 6px;
+}
+
+.mood-bg-empty {
+    background: var(--color-surface-muted);
+}
+
+.mood-bg-great {
+    background: #4caf5022;
+}
+
+.mood-bg-good {
+    background: #8bc34a22;
+}
+
+.mood-bg-okay {
+    background: #ffeb3b22;
+}
+
+.mood-bg-rough {
+    background: #ff980022;
+}
+
+.mood-bg-bad {
+    background: #f4433622;
+}

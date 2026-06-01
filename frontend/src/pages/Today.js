@@ -1,64 +1,64 @@
 import { useEffect, useState } from "react";
-import { getEntry, saveEntry } from "../api";
-import Mood, { MOOD_MAP } from "../components/Mood";
+import { useSaveEntryMutation, useTodayEntryQuery } from "../api";
+import Mood from "../components/Mood";
+import { getFieldError, getFormError } from "../lib/appError";
 
 const moods = ["great", "good", "okay", "rough", "bad"];
 
 
 export default function Today() {
     const today = new Date().toISOString().slice(0, 10);
+    const entryQuery = useTodayEntryQuery(today);
+    const saveMutation = useSaveEntryMutation();
 
     const [content, setContent] = useState("");
     const [mood, setMood] = useState("okay");
-    const [error, setError] = useState("");
     const [success, setSuccess] = useState(false);
 
     useEffect(() => {
-        getEntry(today).then(e => {
-            if (e) {
-                setContent(e.content);
-                setMood(e.mood);
-            }
-        });
-    }, []);
+        if (!entryQuery.data) {
+            return;
+        }
+
+        setContent(entryQuery.data.content || "");
+        setMood(entryQuery.data.mood || "okay");
+    }, [entryQuery.data]);
 
     const save = async () => {
-        setError("");
         setSuccess(false);
         try {
-            const res = await saveEntry({ date: today, content, mood });
-            if (res.detail) {
-                setError(res.detail);
-            } else {
-                setSuccess(true);
-            }
-        } catch (e) {
-            setError("Save failed");
+            await saveMutation.mutateAsync({ date: today, content, mood });
+            setSuccess(true);
+        } catch {
+            // Error UI is handled by centralized app error patterns.
         }
     };
 
+    const contentFieldError = getFieldError(saveMutation.error, "content");
+    const moodFieldError = getFieldError(saveMutation.error, "mood");
+    const formError = getFormError(saveMutation.error);
+
     return (
-        <div>
+        <div className="today-page">
             <h2>Today's Entry</h2>
-            {error && <div style={{ color: 'red', marginBottom: 8 }}>{error}</div>}
-            {success && <div style={{ color: 'green', marginBottom: 8 }}>Saved!</div>}
-            <textarea maxLength={280} value={content} onChange={e => setContent(e.target.value)} />
+            {entryQuery.isPending && <div>Loading today's entry...</div>}
+            {formError && <div className="status-message status-message-error">{formError}</div>}
+            {success && <div className="status-message status-message-success">Saved!</div>}
+            <textarea
+                className="today-textarea"
+                maxLength={280}
+                value={content}
+                onChange={e => setContent(e.target.value)}
+            />
+            {contentFieldError && <div className="field-error">{contentFieldError}</div>}
 
 
-            <div style={{ margin: '8px 0' }}>
+            <div className="today-mood-list">
                 {moods.map(m => (
                     <button
                         key={m}
                         type="button"
-                        style={{
-                            marginRight: 8,
-                            background: mood === m ? MOOD_MAP[m].color + '33' : '#f5f5f5',
-                            border: mood === m ? '2px solid ' + MOOD_MAP[m].color : '1px solid #ccc',
-                            borderRadius: 6,
-                            padding: '4px 10px',
-                            cursor: 'pointer',
-                            fontWeight: mood === m ? 'bold' : 'normal'
-                        }}
+                        className={`mood-button mood-button-${m} ${mood === m ? "selected" : ""}`.trim()}
                         onClick={() => setMood(m)}
                     >
                         <Mood mood={m} />
@@ -66,8 +66,11 @@ export default function Today() {
                     </button>
                 ))}
             </div>
+            {moodFieldError && <div className="field-error">{moodFieldError}</div>}
 
-            <button onClick={save}>Save</button>
+            <button className="save-button" onClick={save} disabled={saveMutation.isPending}>
+                {saveMutation.isPending ? "Saving..." : "Save"}
+            </button>
         </div>
     );
 }

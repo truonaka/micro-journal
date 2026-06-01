@@ -1,0 +1,15 @@
+:root {
+    --color-border-default: #cccccc;
+    --color-surface-muted: #f5f5f5;
+    --color-text-muted: #888888;
+
+    --color-success: #2e7d32;
+    --color-error: #d32f2f;
+
+    --mood-great: #4caf50;
+    --mood-good: #8bc34a;
+    --mood-okay: #ffeb3b;
+    --mood-rough: #ff9800;
+    --mood-bad: #f44336;
+    --mood-unknown: #cccccc;
+}

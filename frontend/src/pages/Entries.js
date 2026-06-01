@@ -1,20 +1,17 @@
-import { useEffect, useState } from "react";
-import { getEntries } from "../api";
+import { useEntriesQuery } from "../api";
 import Mood from "../components/Mood";
 
 export default function Entries() {
-    const [entries, setEntries] = useState([]);
-
-    useEffect(() => {
-        getEntries().then(setEntries);
-    }, []);
+    const entriesQuery = useEntriesQuery();
+    const entries = entriesQuery.data || [];
 
     return (
-        <div>
+        <div className="entries-page">
             <h2>Entries</h2>
-            {entries.length === 0 && <div>No entries yet.</div>}
-            {entries.map(e => (
-                <div key={e.id} style={{ marginBottom: 8 }}>
+            {entriesQuery.isPending && <div>Loading entries...</div>}
+            {!entriesQuery.isPending && entries.length === 0 && <div>No entries yet.</div>}
+            {!entriesQuery.isPending && entries.map(e => (
+                <div key={e.id} className="entry-row">
                     <b>{e.date}</b>: {e.content} <Mood mood={e.mood} />
                 </div>
             ))}

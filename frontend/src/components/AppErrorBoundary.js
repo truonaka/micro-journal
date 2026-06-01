@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class AppErrorBoundary extends React.Component {
+class InternalErrorBoundary extends React.Component {
     constructor(props) {
         super(props);
         this.state = { hasError: false };
@@ -32,4 +32,8 @@ export default class AppErrorBoundary extends React.Component {
 
         return this.props.children;
     }
+}
+
+export default function AppErrorBoundary({ children }) {
+    return <InternalErrorBoundary>{children}</InternalErrorBoundary>;
 }

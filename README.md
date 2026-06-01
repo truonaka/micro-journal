@@ -5,7 +5,7 @@ Quick daily entries with mood tracking.
 Micro Journal is a project related to Siilihub's `Agentic Development with Github Copilot` course, which also combines elements from the `AI ​​Engineer Speedrun` course.
 
 ## Tech Stack
-- Frontend: [React](https://reactjs.org/), [npm, JavaScript](https://www.npmjs.com), CSS
+- Frontend: [React](https://reactjs.org/), [npm, JavaScript](https://www.npmjs.com), CSS, [Cypress](https://www.cypress.io/)
 - Backend: [Python](https://www.python.org), [FastAPI](https://fastapi.tiangolo.com/), [Astral](https://astral.sh), [Pydantic](https://pydantic.dev/docs/), [Pytest](https://docs.pytest.org/)
 - Database: [SQLite](https://sqlite.org)
 
@@ -51,7 +51,7 @@ npm install
 ## Testing
 
 - Backend: `cd backend && pytest`
-- Frontend: `cd frontend && npm test -- --watchAll=false`
+- Frontend: unit test `cd frontend && npm test -- --watchAll=false` and E2E test `cd frontend && npx cypress open`
 
 ## Notes
 - See `.github/copilot/micro-journal.md` for full feature prompt and future ideas.

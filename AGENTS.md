@@ -21,7 +21,7 @@ Monorepo with separate backend and frontend.
 ### Frontend (`frontend/`)
 - React SPA (JavaScript)
 - CSS in `frontend/src/styles`
-
+- Cypress
 
 ## Instruction Routing
 
@@ -36,11 +36,6 @@ Agents must use the following files depending on context:
 - Frontend-specific rules:
   → `.github/instructions/frontend.instructions.md`
 
-Priority order:
-1. Task-specific instruction file
-2. copilot-instructions.md
-3. This file (AGENTS.md)
-
 
 ## Build & Test
 
@@ -50,7 +45,8 @@ Priority order:
 
 ### Frontend
 - Install: `cd frontend && npm install`
-- Test: `cd frontend && npm test -- --watchAll=false`
+- Unit test: `cd frontend && npm test -- --watchAll=false`
+- E2E test: `cd frontend && npx cypress open`
 
 ### Full Dev
 - `./scripts/dev.sh` (run from project root)
@@ -63,10 +59,4 @@ Priority order:
 - Follow existing architecture strictly
 - Prefer minimal, explicit solutions over abstractions
 - All code, comments, and documentation must be in English only
-
-
-## Notes for Agents
-
-- This file does NOT duplicate detailed coding rules
-- Always load `.github/copilot-instructions.md` for implementation guidance
-- Treat linked instruction files as authoritative for their scope
+- When merging or modifying code, do not remove any part unless you have confirmed that all important functionality is retained. If removing a class or code block, you must explicitly check that all essential logic, data flow, and dependencies from the removed part exist in the remaining code. Preserving functionality is mandatory, even if the structure changes.

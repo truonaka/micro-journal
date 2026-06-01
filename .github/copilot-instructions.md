@@ -62,7 +62,8 @@ For high-level navigation and agent routing, see `/AGENTS.md`.
   - `pytest`
 - Frontend:
   - `cd frontend && npm install`
-  - `npm test -- --watchAll=false`
+  - unit: `npm test -- --watchAll=false`
+  - e2e: `npx cypress open`
 
 ### Development Flow
 
@@ -88,9 +89,3 @@ For high-level navigation and agent routing, see `/AGENTS.md`.
 - Do NOT duplicate README content
   → Link to root README for setup instructions
 
-
-## Relationship to AGENTS.md
-
-- `AGENTS.md` = lightweight routing + overview
-- This file = detailed implementation rules for Copilot
-- If rules conflict: **this file takes precedence for code generation**

@@ -1,5 +1,5 @@
 ---
-description: 'Use when editing React/JavaScript frontend code and component styling. Covers alias imports, module boundaries, and thin-app architecture.'
+description: 'Use when editing or creating React/JavaScript frontend code and component styling. Covers alias imports, module boundaries, and thin-app architecture.'
 name: 'Frontend'
 applyTo: 'frontend/src/*.{js,jsx,scss}, frontend/src/**/*.{js,jsx,scss}'
 ---

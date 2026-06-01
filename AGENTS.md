@@ -39,6 +39,8 @@ Agents must use the following files depending on context:
 
 ## Build & Test
 
+- Test coverage must be at least 80% for both backend and frontend.
+
 ### Backend
 - Install: `cd backend && pip install -e .`
 - Test: `cd backend && pytest`

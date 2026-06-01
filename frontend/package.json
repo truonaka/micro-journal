@@ -18,9 +18,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "e2e": "cypress run",
+    "e2e:open": "cypress open",
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "@testing-library/dom": "file:../node_modules/@testing-library/dom",
+    "@testing-library/react": "file:../node_modules/@testing-library/react",
     "cypress": "^15.16.0",
     "react-scripts": "5.0.1"
   },

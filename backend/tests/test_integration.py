@@ -1,4 +1,3 @@
-
 from datetime import date
 
 
@@ -12,12 +11,14 @@ def test_create_entry(client):
     assert data["mood"] == "good"
     assert data["date"] == today
 
+
 def test_get_entries(client):
     response = client.get("/entries")
     assert response.status_code == 200
     entries = response.json()
     assert isinstance(entries, list)
     assert any(e["content"] == "Integration test" for e in entries)
+
 
 def test_get_entry(client):
     today = date.today().isoformat()
@@ -26,6 +27,7 @@ def test_get_entry(client):
     entry = response.json()
     assert entry["content"] == "Integration test"
     assert entry["mood"] == "good"
+
 
 def test_stats(client):
     response = client.get("/stats")

@@ -12,10 +12,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3301",
-        "http://127.0.0.1:3301"
-    ],
+    allow_origins=["http://localhost:3301", "http://127.0.0.1:3301"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -25,5 +22,6 @@ app.add_middleware(
 @app.get("/", response_model=Dict[str, str])
 def root() -> Dict[str, str]:
     return {"message": "API work!"}
+
 
 app.include_router(router)

@@ -1,5 +1,3 @@
-
-
 import logging
 from datetime import date, datetime, timezone
 from typing import Dict, List, Optional
@@ -9,6 +7,7 @@ from .models import Entry
 from .schemas import EntryCreate
 
 logger = logging.getLogger("micro_journal.repository")
+
 
 class EntryRepository:
     @staticmethod
@@ -44,7 +43,7 @@ class EntryRepository:
             content=entry.content,
             mood=entry.mood,
             created_at=now,
-            updated_at=now
+            updated_at=now,
         )
         db.add(new_entry)
         db.commit()

@@ -97,6 +97,7 @@ uv pip install -e .[dev]
 Create a `.env` file in the `frontend` folder with the following content:
 
 ```
+PORT=3301
 REACT_APP_API_URL=http://127.0.0.1:8801
 ```
 

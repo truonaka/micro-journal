@@ -1,0 +1,59 @@
+name: E2E Tests
+
+on:
+  pull_request:
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.13'
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: |
+          uv venv
+          uv pip install -e .[dev]
+
+      - name: Start backend
+        working-directory: backend
+        run: |
+          uv run uvicorn app.main:app --host 127.0.0.1 --port 8801 &
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm install
+
+      - name: Create .env
+        working-directory: frontend
+        run: |
+          echo "REACT_APP_API_URL=http://127.0.0.1:8801" > .env
+          echo "PORT=3301" >> .env
+
+      - name: Run Cypress tests
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: frontend
+          start: npm start
+          wait-on: 'http://localhost:3301'
+          wait-on-timeout: 120
+``

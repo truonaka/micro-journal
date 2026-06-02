@@ -1,35 +1,35 @@
 
-import { useEffect, useState } from "react";
-import { getEntries, getStats } from "../api";
+import { useCalendarDataQuery } from "../api";
 import MonthCalendar from "../components/MonthCalendar";
 import Mood from "../components/Mood";
 
 export default function Calendar() {
-    const [entries, setEntries] = useState([]);
-    const [stats, setStats] = useState({});
+    const calendarQuery = useCalendarDataQuery();
+    const entries = calendarQuery.data?.entries || [];
+    const stats = calendarQuery.data?.stats || {};
 
-    useEffect(() => {
-        getEntries().then(setEntries);
-        getStats().then(setStats);
-    }, []);
-
-    // Laske yleisin moodi
+    // Calculate the most common mood
     let mostCommon = null;
     if (stats && Object.keys(stats).length > 0) {
         mostCommon = Object.entries(stats).sort((a, b) => b[1] - a[1])[0][0];
     }
 
     return (
-        <div>
+        <div className="calendar-page">
             <h2>Calendar</h2>
-            {entries.length === 0 && <div>No entries yet for this month.</div>}
-            <MonthCalendar entries={entries} />
-            <div style={{ marginTop: 24 }}>
-                <b>Legend:</b> {['great', 'good', 'okay', 'rough', 'bad'].map(m => <Mood key={m} mood={m} withText />)}
-            </div>
-            <div style={{ marginTop: 24 }}>
-                <b>Most common mood (all time):</b> {mostCommon ? <Mood mood={mostCommon} withText /> : '—'}
-            </div>
+            {calendarQuery.isPending && <div>Loading calendar...</div>}
+            {!calendarQuery.isPending && entries.length === 0 && <div>No entries yet for this month.</div>}
+            {!calendarQuery.isPending && (
+                <>
+                    <MonthCalendar entries={entries} />
+                    <div className="calendar-section">
+                        <b>Legend:</b> {['great', 'good', 'okay', 'rough', 'bad'].map(m => <Mood key={m} mood={m} withText />)}
+                    </div>
+                    <div className="calendar-section">
+                        <b>Most common mood (all time):</b> {mostCommon ? <Mood mood={mostCommon} withText /> : '—'}
+                    </div>
+                </>
+            )}
         </div>
     );
 }

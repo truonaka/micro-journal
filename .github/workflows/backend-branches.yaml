@@ -5,6 +5,8 @@ on:
   push:
     branches-ignore:
       - main
+    paths:
+      - backend/**
 
 jobs:
   backend:

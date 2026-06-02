@@ -1,7 +1,11 @@
 /frontend/node_modules
-/backend/venv
+/frontend/build
+/backend/.venv
 /backend/__pycache__/
 /backend/*.db
+/backend/uv.lock
+/backend/.ruff_cache/
+/backend/.pytest_cache/
 *.sqlite3
 *.log
 .DS_Store

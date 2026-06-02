@@ -1,6 +1,6 @@
 // MonthCalendar.js
 import React from "react";
-import Mood, { MOOD_MAP } from "./Mood";
+import Mood from "./Mood";
 
 function getMonthDays(year, month) {
     // month: 0-based
@@ -31,15 +31,16 @@ export default function MonthCalendar({ entries }) {
     // Pad start
     const cells = [];
     for (let i = 0; i < firstDayOfWeek; i++) {
-        cells.push(<td key={"pad-" + i}></td>);
+        cells.push(<td key={"pad-" + i} className="month-calendar-pad"></td>);
     }
 
     days.forEach(day => {
         const dateStr = day.toISOString().slice(0, 10);
         const entry = entryMap[dateStr];
+        const moodClass = entry?.mood ? `mood-bg-${entry.mood}` : "mood-bg-empty";
         cells.push(
-            <td key={dateStr} style={{ textAlign: "center", padding: 6, background: entry ? MOOD_MAP[entry.mood]?.color + "22" : "#f5f5f5", borderRadius: 6 }}>
-                <div style={{ fontSize: "0.8em", color: "#888" }}>{day.getDate()}</div>
+            <td key={dateStr} className={`month-calendar-cell ${moodClass}`}>
+                <div className="month-calendar-day-number">{day.getDate()}</div>
                 {entry ? <Mood mood={entry.mood} /> : null}
             </td>
         );
@@ -52,7 +53,7 @@ export default function MonthCalendar({ entries }) {
     }
 
     return (
-        <table style={{ borderCollapse: "separate", borderSpacing: 4, margin: "0 auto" }}>
+        <table className="month-calendar-table">
             <thead>
                 <tr>
                     <th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th>

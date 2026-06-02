@@ -1,8 +1,11 @@
-import pytest
 from datetime import date, datetime
+
+import pytest
 from fastapi import HTTPException
-from app.services import EntryService
+
 from app.schemas import EntryCreate, EntryOut
+from app.services import EntryService
+
 
 class DummyRepo:
     @staticmethod

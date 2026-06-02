@@ -2,7 +2,7 @@
 
 import logging
 from datetime import date, datetime, timezone
-from typing import List, Dict, Optional
+from typing import Dict, List, Optional
 
 from .db import SessionLocal
 from .models import Entry

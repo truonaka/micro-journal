@@ -15,8 +15,8 @@ Monorepo with separate backend and frontend.
 - Pydantic
 - SQLite
 - Pytest
+- Astral tooling (`uv`, `ruff`, `ty`)
 - Dependencies in `pyproject.toml`
-- Astral tooling (`uv`, `ruff`)
 
 ### Frontend (`frontend/`)
 - React SPA (JavaScript)
@@ -37,21 +37,20 @@ Agents must use the following files depending on context:
   → `.github/instructions/frontend.instructions.md`
 
 
-## Build & Test
+## Commands
 
-- Test coverage must be at least 80% for both backend and frontend.
 
-### Backend
-- Install: `cd backend && pip install -e .`
-- Test: `cd backend && pytest`
-
-### Frontend
-- Install: `cd frontend && npm install`
-- Unit test: `cd frontend && npm test -- --watchAll=false`
-- E2E test: `cd frontend && npx cypress open`
-
-### Full Dev
-- `./scripts/dev.sh` (run from project root)
+| Command                                          | Purpose                   |
+| ------------------------------------------------ | ------------------------- |
+| `cd backend && pip install -e .[dev]`            | Install backend dependencies |
+| `cd backend && pytest`                           | Run backend tests |
+| `cd backend && uv run ruff check .`             | Lint workspace            |
+| `cd backend && uv run ty check .`               | Type check workspace      |
+| `cd backend && uvicorn app.main:app --reload --port 8801` | Run backend server        |
+| `cd frontend && npm install`                     | Install frontend dependencies |
+| `cd frontend && npm test -- --watchAll=false`  | Run frontend unit tests   |
+| `cd frontend && npx cypress open`              | Run frontend E2E tests    |
+| `cd frontend && npm start`                                     | Run frontend server        |
 
 
 ## Core Rules
@@ -61,4 +60,6 @@ Agents must use the following files depending on context:
 - Follow existing architecture strictly
 - Prefer minimal, explicit solutions over abstractions
 - All code, comments, and documentation must be in English only
+- Don't leave unused imports and froms in code.
 - When merging or modifying code, do not remove any part unless you have confirmed that all important functionality is retained. If removing a class or code block, you must explicitly check that all essential logic, data flow, and dependencies from the removed part exist in the remaining code. Preserving functionality is mandatory, even if the structure changes.
+- Test coverage must be at least 80% for both backend and frontend.

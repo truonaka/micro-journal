@@ -1,11 +1,10 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any
 
 from sqlalchemy import Column, Date, DateTime, Integer, String
 
 from .db import Base
 
-from datetime import datetime, timezone
 
 class Entry(Base):
     __tablename__ = "entries"

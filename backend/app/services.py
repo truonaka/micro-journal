@@ -3,7 +3,9 @@
 import logging
 from datetime import date
 from typing import Dict, List, Optional
+
 from fastapi import HTTPException
+
 from .repository import EntryRepository
 from .schemas import EntryCreate, EntryOut
 

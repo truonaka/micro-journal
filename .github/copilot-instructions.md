@@ -59,11 +59,11 @@ For high-level navigation and agent routing, see `/AGENTS.md`.
 
 - Backend:
   - `cd backend && pip install -e .`
-  - `pytest`
+  - `cd backend && pytest`
 - Frontend:
   - `cd frontend && npm install`
-  - unit: `npm test -- --watchAll=false`
-  - e2e: `npx cypress open`
+  - unit: `cd frontend && npm test -- --watchAll=false`
+  - e2e: `cd frontend && npx cypress open`
 
 ### Development Flow
 

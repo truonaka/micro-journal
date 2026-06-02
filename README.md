@@ -19,7 +19,7 @@ Micro Journal is a project related to Siilihub's `Agentic Development with Githu
 	- [Axios](https://axios-http.com/)
 	- [Create React App / react-scripts](https://create-react-app.dev/)
 - Backend:
-	- [Python 3.10+](https://www.python.org)
+	- [Python >=3.10](https://www.python.org)
 	- [FastAPI](https://fastapi.tiangolo.com/)
 	- [SQLAlchemy](https://www.sqlalchemy.org/)
 	- [Pydantic](https://pydantic.dev/)
@@ -27,14 +27,14 @@ Micro Journal is a project related to Siilihub's `Agentic Development with Githu
 - Tooling & quality:
 	- [uv](https://docs.astral.sh/uv/)
 	- [Ruff](https://docs.astral.sh/ruff/)
-	- [Pyright](https://github.com/microsoft/pyright)
+	- [Ty](https://docs.astral.sh/ty/)
 	- [Pytest](https://docs.pytest.org/)
 	- [Cypress](https://www.cypress.io/)
-	- [concurrently](https://www.npmjs.com/package/concurrently)
 
 ## Development Setup
 
 ### 1. Clone the repository
+Install [Git](https://git-scm.com/install/) and run the following commands in your terminal:
 
 ```sh
 git clone <repo-url>
@@ -43,70 +43,81 @@ cd micro-journal
 
 ### 2. Install dependencies
 
-Prerequisites:
-- Node.js (LTS recommended)
-- Python 3.10+
-- `uv` installed for backend dependency management
+#### Global tools
 
-#### Project root tools
-
-```sh
-npm install
-```
+Save the following tech stacks to your computer:
+- Python 
+- Uv Astraltu
+- Node.js + npm
 
 #### Frontend
 
+1. React and frontend dependencies are run in the frontend folder. Go to frontend folder:
+
 ```sh
 cd frontend
+```
+
+2. Install dependencies:
+
+```sh
 npm install
-cd ..
 ```
 
 #### Backend
 
+1. Python and FastAPI are run in the backend folder. Go to backend folder:
+
 ```sh
 cd backend
-uv sync
-cd ..
 ```
 
-> Optional alternative for backend (without `uv`):
+2. Create and activate a virtual environment
 
+macOS/Linux:
 ```sh
-cd backend
-python3 -m venv .venv
+uv venv
 source .venv/bin/activate
-pip install -e .
-cd ..
 ```
 
-## Running the app
-
-### Option A: Start both services with one command (default ports)
-
+windows (cmd):
 ```sh
-npm run dev
+uv venv
+.venv\Scripts\activate
 ```
 
-- Backend: `http://localhost:8000`
-- Frontend: `http://localhost:3000`
-
-### Option B: Start both services with custom ports
+3. Install dependencies:
 
 ```sh
+uv pip install -e .[dev]
+```
+
+### 3. Set up environment variables
+
+Create a `.env` file in the `frontend` folder with the following content:
+
+```
+REACT_APP_API_URL=http://127.0.0.1:8801
+```
+
+## Running and cleaning the app
+
+### Option A: Start both services with helper script. Use only in macOs/Linux.
+
+```sh
+chmod +x scripts/dev.sh
 ./scripts/dev.sh
 ```
-
 - Backend: `http://localhost:8801`
 - Frontend: `http://localhost:3301`
 
-### Option C: Start services separately
+### Option B: Start services separately
 
 Backend:
 
 ```sh
 cd backend
-uv run uvicorn app.main:app --reload
+uvicorn app.main:app --reload --port 8801
 ```
 
 Frontend:
@@ -116,13 +127,31 @@ cd frontend
 npm start
 ```
 
+### Cleaning up
+ - Stop both servers (Ctrl+C in terminal)
+ - Run cleaning script:
+ ```sh
+chmod +x scripts/clean.sh
+./scripts/clean.sh
+```
+
+
 ## Testing
 
 - Backend tests:
 
 ```sh
 cd backend
-uv run pytest
+pytest
+```
+
+
+- Optional backend quality checks:
+
+```sh
+cd backend
+uv run ruff check .
+uv run ty check .
 ```
 
 - Frontend unit tests:
@@ -144,14 +173,6 @@ npm run e2e
 ```sh
 cd frontend
 npm run e2e:open
-```
-
-- Optional backend quality checks:
-
-```sh
-cd backend
-uv run ruff check .
-uv run pyright
 ```
 
 ## Notes

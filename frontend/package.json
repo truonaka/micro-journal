@@ -10,7 +10,7 @@
     "react-router-dom": "^6.22.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3301 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "e2e": "cypress run",
@@ -23,7 +23,6 @@
     "cypress": "^15.16.0",
     "react-scripts": "5.0.1"
   },
-  "proxy": "http://localhost:8801",
   "browserslist": {
     "production": [
       ">0.2%",

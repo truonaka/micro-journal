@@ -2,6 +2,14 @@ import { MutationCache, QueryCache, QueryClient } from "@tanstack/react-query";
 import { normalizeApiError } from "./appError";
 import { emitToast } from "./toastBus";
 
+const MAX_NETWORK_QUERY_RETRIES = 2;
+
+export function shouldRetryQuery(failureCount, error) {
+    const appError = normalizeApiError(error);
+    const isNetworkError = appError.status === 0;
+    return isNetworkError && failureCount < MAX_NETWORK_QUERY_RETRIES;
+}
+
 function handleGlobalError(error) {
     const appError = normalizeApiError(error);
 
@@ -30,7 +38,8 @@ export const queryClient = new QueryClient({
     }),
     defaultOptions: {
         queries: {
-            retry: false,
+            retry: shouldRetryQuery,
+            retryDelay: attemptIndex => Math.min(500 * (attemptIndex + 1), 1500),
             refetchOnWindowFocus: false
         },
         mutations: {

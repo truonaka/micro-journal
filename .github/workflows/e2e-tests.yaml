@@ -56,4 +56,3 @@ jobs:
           start: npm start
           wait-on: 'http://localhost:3301'
           wait-on-timeout: 120
-``

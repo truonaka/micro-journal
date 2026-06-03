@@ -179,8 +179,8 @@ uv run ty check .
 
 ```sh
 cd frontend
-npm run lint
-npm run lint:fix
+npm run code-quality-check
+npm run code-quality-fix
 ```
 
 ## Notes

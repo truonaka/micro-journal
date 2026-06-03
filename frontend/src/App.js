@@ -1,14 +1,13 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import Today from "./pages/Today";
-import Calendar from "./pages/Calendar";
-import Entries from "./pages/Entries";
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import Today from './pages/Today'
+import Calendar from './pages/Calendar'
+import Entries from './pages/Entries'
 
 export default function App() {
   return (
     <BrowserRouter>
       <nav>
-        <Link to="/">Today</Link> | 
-        <Link to="/calendar">Calendar</Link> | 
+        <Link to="/">Today</Link> |<Link to="/calendar">Calendar</Link> |
         <Link to="/entries">Entries</Link>
       </nav>
 
@@ -18,5 +17,5 @@ export default function App() {
         <Route path="/entries" element={<Entries />} />
       </Routes>
     </BrowserRouter>
-  );
+  )
 }

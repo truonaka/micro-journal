@@ -49,6 +49,7 @@ Agents must use the following files depending on context:
 | `cd backend && uv run ty check .`                          | Type check workspace           |
 | `cd backend && uvicorn app.main:app --reload --port 8801`  | Run backend server             |
 | `cd frontend && npm run lint`                              | Lint frontend code             |
+| `cd frontend && npm run format`                            | Run formatter                  |
 | `cd frontend && npm install`                               | Install frontend dependencies  |
 | `cd frontend && npm test -- --watchAll=false`              | Run frontend unit tests        |
 | `cd frontend && npx cypress open`                          | Run frontend E2E tests         |

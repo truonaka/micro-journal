@@ -9,6 +9,7 @@ Micro Journal is a project related to Siilihub's `Agentic Development with Githu
 - [Development Setup](#development-setup)
 - [Running the app](#running-the-app)
 - [Testing](#testing)
+- [Quality and Style](#quality-and-style)
 - [Notes](#notes)
 
 ## Tech Stack
@@ -30,6 +31,7 @@ Micro Journal is a project related to Siilihub's `Agentic Development with Githu
 	- [Ty](https://docs.astral.sh/ty/)
 	- [Pytest](https://docs.pytest.org/)
 	- [Cypress](https://www.cypress.io/)
+	- [ESLint](https://eslint.org/)
 
 ## Development Setup
 
@@ -146,15 +148,6 @@ cd backend
 pytest
 ```
 
-
-- Optional backend quality checks:
-
-```sh
-cd backend
-uv run ruff check .
-uv run ty check .
-```
-
 - Frontend unit tests:
 
 ```sh
@@ -174,6 +167,20 @@ npm run e2e
 ```sh
 cd frontend
 npm run e2e:open
+```
+
+## Quality and Style
+
+```sh
+cd backend
+uv run ruff check .
+uv run ty check .
+```
+
+```sh
+cd frontend
+npm run lint
+npm run lint:fix
 ```
 
 ## Notes

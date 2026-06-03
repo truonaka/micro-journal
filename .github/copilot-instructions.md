@@ -9,8 +9,9 @@ For high-level navigation and agent routing, see `/AGENTS.md`.
 
 - Use Astral tooling in backend:
   - `uv` for package management and environments
-  - `ruff` for linting and formatting
+  - `ruff` an `ty` for linting and formatting
 - Use function components and hooks in frontend.
+- Use `eslint` and prettier for frontend code style.
 - Keep code simple, readable, and explicit.
 - Prefer small, focused functions.
 - All code, comments, documentation and identifiers must be written in English.
@@ -58,10 +59,13 @@ For high-level navigation and agent routing, see `/AGENTS.md`.
 ## Build and Test
 
 - Backend:
-  - `cd backend && pip install -e .`
+  - `cd backend && pip install -e .[dev]`
+  - `cd backend && uv run ruff check .`
+  - `cd backend && uv run ty check .`
   - `cd backend && pytest`
 - Frontend:
   - `cd frontend && npm install`
+  - `cd frontend && npm run lint`
   - unit: `cd frontend && npm test -- --watchAll=false`
   - e2e: `cd frontend && npx cypress open`
 
